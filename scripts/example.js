@@ -15,15 +15,15 @@ var Comment = React.createClass({
 });
 
 var CommentBox = React.createClass({
-  loadCommentsFromServer: React.autoBind(function() {
+  loadCommentsFromServer: function() {
     $.ajax({
       url: this.props.url,
       success: function(data) {
         this.setState({data: data});
       }.bind(this)
     });
-  }),
-  handleCommentSubmit: React.autoBind(function(comment) {
+  },
+  handleCommentSubmit: function(comment) {
     var comments = this.state.data;
     comments.push(comment);
     this.setState({data: comments});
@@ -35,7 +35,7 @@ var CommentBox = React.createClass({
         this.setState({data: data});
       }.bind(this)
     });
-  }),
+  },
   getInitialState: function() {
     return {data: []};
   },
@@ -64,7 +64,7 @@ var CommentList = React.createClass({
 });
 
 var CommentForm = React.createClass({
-  handleSubmit: React.autoBind(function() {
+  handleSubmit: function() {
     var author = this.refs.author.getDOMNode().value.trim();
     var text = this.refs.text.getDOMNode().value.trim();
     if (text.length === 0 || author.length === 0) {
@@ -74,7 +74,7 @@ var CommentForm = React.createClass({
     this.refs.author.getDOMNode().value = '';
     this.refs.text.getDOMNode().value = '';
     return false;
-  }),
+  },
   render: function() {
     return (
       <form className="commentForm" onSubmit={this.handleSubmit}>
