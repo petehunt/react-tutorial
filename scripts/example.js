@@ -6,8 +6,8 @@ var Comment = React.createClass({
   render: function() {
     var rawMarkup = converter.makeHtml(this.props.children.toString());
     return (
-      <div class="comment">
-        <h2 class="commentAuthor">{this.props.author}</h2>
+      <div className="comment">
+        <h2 className="commentAuthor">{this.props.author}</h2>
         <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
       </div>
     );
@@ -15,15 +15,15 @@ var Comment = React.createClass({
 });
 
 var CommentBox = React.createClass({
-  loadCommentsFromServer: React.autoBind(function() {
+  loadCommentsFromServer: function() {
     $.ajax({
       url: this.props.url,
       success: function(data) {
         this.setState({data: data});
       }.bind(this)
     });
-  }),
-  handleCommentSubmit: React.autoBind(function(comment) {
+  },
+  handleCommentSubmit: function(comment) {
     var comments = this.state.data;
     comments.push(comment);
     this.setState({data: comments});
@@ -35,17 +35,17 @@ var CommentBox = React.createClass({
         this.setState({data: data});
       }.bind(this)
     });
-  }),
+  },
   getInitialState: function() {
     return {data: []};
   },
-  componentDidMount: function() {
+  componentWillMount: function() {
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
   render: function() {
     return (
-      <div class="commentBox">
+      <div className="commentBox">
         <h1>Comments</h1>
         <CommentList data={this.state.data} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
@@ -59,22 +59,19 @@ var CommentList = React.createClass({
     var commentNodes = this.props.data.map(function (comment) {
       return <Comment author={comment.author}>{comment.text}</Comment>;
     });
-    return <div class="commentList">{commentNodes}</div>;
+    return <div className="commentList">{commentNodes}</div>;
   }
 });
 
 var CommentForm = React.createClass({
-  handleSubmit: React.autoBind(function() {
+  handleSubmit: function() {
     var author = this.refs.author.getDOMNode().value.trim();
     var text = this.refs.text.getDOMNode().value.trim();
-    if (text.length === 0 || author.length === 0) {
-      return false;
-    }
     this.props.onCommentSubmit({author: author, text: text});
     this.refs.author.getDOMNode().value = '';
     this.refs.text.getDOMNode().value = '';
     return false;
-  }),
+  },
   render: function() {
     return (
       <form className="commentForm" onSubmit={this.handleSubmit}>
