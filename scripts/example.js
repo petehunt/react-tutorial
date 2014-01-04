@@ -16,25 +16,40 @@ var Comment = React.createClass({
 
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
-    $.ajax({
-      url: this.props.url,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this)
-    });
+    var req = new XMLHttpRequest();
+    req.onload = function(){
+      if (req.readyState !== 4 || req.status !== 200) return;
+      this.setState({data: JSON.parse(req.responseText)});
+    }.bind(this);
+    req.open("GET", this.props.url, true);
+    req.send();
+    // $.ajax({
+    //   url: this.props.url,
+    //   success: function(data) {
+    //     this.setState({data: data});
+    //   }.bind(this)
+    // });
   },
   handleCommentSubmit: function(comment) {
     var comments = this.state.data;
     comments.push(comment);
     this.setState({data: comments});
-    $.ajax({
-      url: this.props.url,
-      type: 'POST',
-      data: comment,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this)
-    });
+    var req = new XMLHttpRequest();
+    req.onload = function(){
+      if (req.readyState !== 4 || req.status !== 200) return;
+      this.setState({data: JSON.parse(req.responseText)});
+    }.bind(this);
+    req.open("POST", this.props.url, true);
+    req.setRequestHeader("Content-type","application/json");
+    req.send(JSON.stringify(comment));
+    // $.ajax({
+    //   url: this.props.url,
+    //   type: 'POST',
+    //   data: comment,
+    //   success: function(data) {
+    //     this.setState({data: data});
+    //   }.bind(this)
+    // });
   },
   getInitialState: function() {
     return {data: []};
