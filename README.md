@@ -6,7 +6,8 @@ This is the React comment box example from [the React tutorial](http://facebook.
 
 ```
 npm install express
+npm install body-parser
 node server.js
 ```
 
-And visit http://localhost:3000/. Try opening multiple tabs!
+And visit http://localhost:3000/. Try opening multiple tabs or windows!
