@@ -1,12 +1,13 @@
 var fs = require('fs');
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 var comments = [{author: 'Pete Hunt', text: 'Hey there!'}];
 
 app.use('/', express.static(__dirname));
-app.use(express.bodyParser());
+app.use(bodyParser());
 
 app.get('/comments.json', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -19,4 +20,5 @@ app.post('/comments.json', function(req, res) {
   res.send(JSON.stringify(comments));
 });
 
+console.log('Server running on http://localhost:3000');
 app.listen(3000);
