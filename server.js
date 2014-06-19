@@ -8,6 +8,7 @@ var comments = [{author: 'Pete Hunt', text: 'Hey there!'}];
 
 app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 app.get('/comments.json', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
