@@ -1,4 +1,4 @@
-// server.js -- React tutorial server
+// server.js -- React tutorial server, serving on http://localhost:3000
 //  This application requires 'express'.  Use 'npm install express' to install it.
 var fs = require('fs');
 
