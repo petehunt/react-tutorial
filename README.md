@@ -15,6 +15,8 @@ And visit http://localhost:3000/. Try opening multiple tabs!
 
 Some important files in this repository:
 
+*comments.json* - The  [JSON](http://json.org) file acting as storage for comments served to the application.  A copy of this file is in *original_comments.json* to make it convenient to reset the state of the application.
+
 *index.html* - The HTML file to load in your browser.  It loads the React and other libraries through a Content Delivery
   Network (CDN) and executes the tutorial application *scripts/example.js*.
 
